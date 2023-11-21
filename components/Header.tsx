@@ -21,41 +21,33 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   };
   return (
     <div
-      className={twMerge(`h-fit
-        bg-gradient-to-b
-        from-emerald-600
-        to-55%
-        p-6
-        `,
+    // bg-gradient-to-b from-emerald-700 to-55%
+      className={twMerge(`h-fit bg-gradient-to-b from-gray-900 p-6`,
         className
       )}
     >
       <div className="w-full md-4 flex items-center justify-between">
         <div
-          className="
-                hidden
-                md:flex
-                gap-x-2
-                items-center"
+          className="hidden md:flex gap-x-2 items-center"
         >
           <button
             onClick={() => router.back()}
-            className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition"
+            className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition hover:scale-110"
           >
             <RxCaretLeft className="text-white" size={35} />
           </button>
           <button
             onClick={() => router.forward()}
-            className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition"
+            className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition hover:scale-110"
           >
             <RxCaretRight className="text-white" size={35} />
           </button>
         </div>
         <div className="flex md:hidden gap-x-2 items-center">
-          <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opactiy-75 transition">
+          <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opactiy-75 transition hover:scale-110">
             <HiHome className="text-black" size={20} />
           </button>
-          <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opactiy-75 transition">
+          <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opactiy-75 transition hover:scale-110">
             <BiSearch className="text-black" size={20} />
           </button>
         </div>
@@ -64,9 +56,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <div>
               <Button
                 onClick={() => {}}
-                className="bg-transparent
-                        text-neutral-300
-                        font-medium"
+                className="bg-transparent text-neutral-300 font-medium hover:scale-110"
               >
                 {' '}
                 Sign Up
@@ -75,10 +65,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <div>
               <Button
                 onClick={() => {}}
-                className="
-                        bg-white
-                        px-6
-                        py-2"
+                className="bg-white px-6 py-2 hover:scale-110"
               >
                 {' '}
                 Log In
