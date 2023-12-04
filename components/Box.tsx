@@ -8,19 +8,17 @@ interface BoxProps {
 const Box: React.FC<BoxProps> = ({ children, className }) => {
   return (
     <div
-      className={twMerge(
-        `
-            bg-neutral-900
-            rounded-lg
-            h-fit
-            w-full
-            `,
-        className
-      )}
+      className={twMerge('rounded-lg h-fit w-full overflow-hidden relative', className)}
     >
-      {children}
+      <div className="absolute top-0 left-0 w-full h-full bg-neutral-900 grainy-background ">
+      </div>
+      <div className="relative z-10">
+        {children}
+      </div>
     </div>
   );
 };
+
+
 
 export default Box;
