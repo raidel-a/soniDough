@@ -95,7 +95,7 @@
   "editor.codeActionsOnSave": {
   "source.organizeImports": "always"
   },
-  "workbench.colorTheme": "Gruvbox Material Dark",
+  "workbench.colorTheme": "Gruvbox Material Light",
   "workbench.preferredDarkColorTheme": "Gruvbox Material Dark",
   "workbench.preferredLightColorTheme": "Gruvbox Material Light",
   "editor.mouseWheelZoom": true,
@@ -157,6 +157,7 @@
   "gruvboxMaterial.lightContrast": "hard",
   "gruvboxMaterial.diagnosticTextBackgroundOpacity": "50%",
   "gruvboxMaterial.italicKeywords": true,
-  "gruvboxMaterial.italicComments": true,
+"gruvboxMaterial.italicComments": true,
+"workbench.editor.tabActionLocation": "left",
 
 }

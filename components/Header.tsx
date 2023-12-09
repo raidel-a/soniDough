@@ -7,6 +7,12 @@ import { HiHome } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
 
 import Button from './Button';
+import useAuthModal from '@/hooks/useAuthModal';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+
+import { useUser } from '@/hooks/useUser';
+import { FaUserAlt } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -14,11 +20,24 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
+  const authModal = useAuthModal();
   const router = useRouter();
 
-  const handleLogoout = () => {
-    // logout logic
-  };
+  const supabaseClient = useSupabaseClient();
+  const { user } = useUser();
+
+  const handleLogoout = async () => {
+    const { error } = await supabaseClient.auth.signOut();
+  //TODO: reset playing songs in future
+  router.refresh();
+
+  if (error) {
+    toast.error(error.message);
+  } else {
+    toast.success('Logged out successfully')
+  }
+};
+
   return (
     <div
     // bg-gradient-to-b from-emerald-700 to-55%
@@ -52,10 +71,22 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           </button>
         </div>
         <div className="flex justify-between items-center gap-x-4">
+          {user ? ( <div className= 'flex gap-x-4 items-center'>
+            <Button
+            onClick={handleLogoout}
+            className='bg-white px-6 py-2'>
+              Logout
+            </Button>
+            <Button onClick={() => router.push('/account')}
+            className='bg-white'
+            >
+              <FaUserAlt />
+            </Button>
+            </div> ) : (
           <>
             <div>
               <Button
-                onClick={() => {}}
+                onClick={authModal.onOpen}
                 className="bg-transparent text-neutral-300 font-medium hover:scale-110"
               >
                 {' '}
@@ -64,14 +95,14 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             </div>
             <div>
               <Button
-                onClick={() => {}}
+                onClick={authModal.onOpen}
                 className="bg-white px-6 py-2 hover:scale-110"
               >
                 {' '}
                 Log In
               </Button>
             </div>
-          </>
+          </> )}
         </div>
       </div>
       {children}

@@ -10,9 +10,9 @@ const Box: React.FC<BoxProps> = ({ children, className }) => {
     <div
       className={twMerge('rounded-lg h-fit w-full overflow-hidden relative', className)}
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-neutral-900 grainy-background ">
+      <div className="absolute top-0 left-0 w-full h-full bg-neutral-900">
       </div>
-      <div className="relative z-10">
+      <div className="relative">
         {children}
       </div>
     </div>
