@@ -93,9 +93,10 @@
   "[typescript]": {},
   "workbench.sideBar.location": "right",
   "editor.codeActionsOnSave": {
+
   "source.organizeImports": "always"
   },
-  "workbench.colorTheme": "Gruvbox Material Light",
+  "workbench.colorTheme": "Gruvbox Material Dark",
   "workbench.preferredDarkColorTheme": "Gruvbox Material Dark",
   "workbench.preferredLightColorTheme": "Gruvbox Material Light",
   "editor.mouseWheelZoom": true,
@@ -137,13 +138,14 @@
   "errorLens.fontStyleItalic": true,
   "workbench.layoutControl.type": "menu",
   "terminal.integrated.shellIntegration.enabled": false,
-  "editor.fontSize": 15.5,
+  "editor.fontSize": 15,
   "diffEditor.hideUnchangedRegions.enabled": true,
   "accessibility.hideAccessibleView": true,
   "editor.fontFamily": "'Fira Code iScript', 'Fira Code'",
   "editor.fontLigatures": "'calt', 'ss01'",
   "tailwindCSS.emmetCompletions": true,
-  "editor.lineHeight": 1.3,
+  "editor.lineHeight": 1.25,
+  "workbench.editor.tabActionLocation": "left",
 
   "gruvboxMaterial.highContrast": true,
   "gruvboxMaterial.darkCursor": "green",
@@ -157,7 +159,6 @@
   "gruvboxMaterial.lightContrast": "hard",
   "gruvboxMaterial.diagnosticTextBackgroundOpacity": "50%",
   "gruvboxMaterial.italicKeywords": true,
-"gruvboxMaterial.italicComments": true,
-"workbench.editor.tabActionLocation": "left",
+  "gruvboxMaterial.italicComments": true,
 
 }

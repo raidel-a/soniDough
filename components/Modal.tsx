@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({
         
         <Dialog.Overlay className=" bg-neutral-900/90 backdrop-blur-sm fixed inset-0" />
         
-        <Dialog.Content className="fixed drop-shadow-md border border-neutral-700 top-[50%] left-[50%] max-h-full h-full md:h-auto md:max-h-[85vh] w-full md:w-[90vw] md-max-w-[450p] translate-x-[-50%] translate-y-[-50%] rounded-md bg-neutral-800 p-[25px] focus:outline-dotted">
+        <Dialog.Content className="fixed drop-shadow-md border border-neutral-700 top-[50%] left-[50%] max-h-full h-full md:h-auto md:max-h-[85vh] w-full md:w-[90vw] md-max-w-[450p] translate-x-[-50%] translate-y-[-50%] rounded-md bg-neutral-800 p-[25px] focus:outline-none">
          
           <Dialog.Title className="text-xl text-center font-bold mb-4">
             {title}
@@ -35,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({
             <div>{children}</div>
           
           <Dialog.Close asChild>
-            <button className="text-neutral-400 hover:text-white absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:outline-none">
+            <button className="text-neutral-400 hover:text-white absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:outline-none hover:outline-dotted">
               <IoMdClose />
             </button>
           </Dialog.Close>

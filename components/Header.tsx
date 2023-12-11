@@ -34,8 +34,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   if (error) {
     toast.error(error.message);
   } else {
-    toast.success('Logged out successfully')
-  }
+    toast.success('Logged out successfully')  }
 };
 
   return (
@@ -74,11 +73,11 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           {user ? ( <div className= 'flex gap-x-4 items-center'>
             <Button
             onClick={handleLogoout}
-            className='bg-white px-6 py-2'>
+            className='bg-white px-3 py-1 hover:scale-110'>
               Logout
             </Button>
             <Button onClick={() => router.push('/account')}
-            className='bg-white'
+            className='bg-white hover:scale-110'
             >
               <FaUserAlt />
             </Button>

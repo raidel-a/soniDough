@@ -48,7 +48,7 @@ const AuthModal = () => {
         appearance={{
           theme: ThemeSupa,
           variables: { default: { 
-          colors: { brand: '#404040', brandAccent: '#22c55e' } },
+          colors: { brand: '#404040', brandAccent: '#244dd5' } },
           },
         }}
       />
