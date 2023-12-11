@@ -25,7 +25,7 @@ const UploadModal = () => {
       title: "",
       song: null,
       image: null,
-    },
+    }
   });
 
   const onChange = (open: boolean) => {
@@ -33,7 +33,8 @@ const UploadModal = () => {
       reset();
       uploadModal.onClose();
     }
-  };
+  }
+
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
       setIsLoading(true);
@@ -41,11 +42,12 @@ const UploadModal = () => {
       const imageFile = values.image?.[0];
       const songFile = values.song?.[0];
       if (!imageFile || !songFile || !user) {
-        toast.error("Sometings Wrong");
+        toast.error("Somethings gone wrong");
         return;
       }
 
       const uniqueID = uniqid();
+
       const { data: songData, error: songError } = await supabaseClient.storage
         .from("songs")
         .upload(`song-${values.title}-${uniqueID}`, songFile, {
@@ -92,7 +94,7 @@ const UploadModal = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   return (
     <Modal
@@ -111,7 +113,7 @@ const UploadModal = () => {
         <Input
           id="author"
           disabled={isLoading}
-          {...register("title", { required: true })}
+          {...register("author", { required: true })}
           placeholder="Song author"
         />
         <div>
@@ -121,7 +123,7 @@ const UploadModal = () => {
             type="file"
             disabled={isLoading}
             accept=".mp3"
-            {...register("file", { required: true })}
+            {...register("song", { required: true })}
           />
           {/* TODO: add more file types */}
         </div>
