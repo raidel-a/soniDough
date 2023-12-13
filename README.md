@@ -1,3 +1,5 @@
+![Visualization of this repo](./diagram.svg)
+
 ## Stack
  Next 13.4
  React 
