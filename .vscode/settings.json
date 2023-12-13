@@ -10,7 +10,7 @@
   "git.autofetch": true,
   "local-history.saveDelay": 300,
   "terminal.integrated.fontFamily": "monospace",
-  "editor.wordWrap": "bounded",
+  "editor.wordWrap": "off",
   "launch": {
       "configurations": []
   },
@@ -159,6 +159,7 @@
   "gruvboxMaterial.lightContrast": "hard",
   "gruvboxMaterial.diagnosticTextBackgroundOpacity": "50%",
   "gruvboxMaterial.italicKeywords": true,
-  "gruvboxMaterial.italicComments": true,
-
+"gruvboxMaterial.italicComments": true,
+"github.copilot.editor.enableAutoCompletions": false,
+"github.copilot."
 }
