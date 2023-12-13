@@ -3,10 +3,10 @@ on:
   workflow_dispatch: {}
   push:
     branches:
-      - master
+      - diagram
 jobs:
   get_data:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@master
