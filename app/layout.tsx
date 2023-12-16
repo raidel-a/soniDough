@@ -1,28 +1,27 @@
-import type { Metadata } from 'next';
-import { Figtree } from 'next/font/google';
-import './globals.css';
-import Sidebar from '@/components/Sidebar';
-import SupabaseProvider from '@/providers/SupabaseProvider';
-import UserProvider from '@/providers/UserProvider';
-import ModalProvider from '@/providers/ModalProvider';
-import ToasterProvider from '@/providers/ToasterProvider';
-import getSongsByUserID from '@/actions/getSongsByUserID';
+import getSongsByUserId from "@/actions/getSongsByUserId";
+import Sidebar from "@/components/Sidebar";
+import ModalProvider from "@/providers/ModalProvider";
+import SupabaseProvider from "@/providers/SupabaseProvider";
+import ToasterProvider from "@/providers/ToasterProvider";
+import UserProvider from "@/providers/UserProvider";
+import { Figtree } from "next/font/google";
+import "./globals.css";
+import Player from "@/components/Player";
 
-const font = Figtree({ subsets: ['latin'] });
+const font = Figtree({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: 'soniDough',
-  description: 'Kneaded with ❤️ desde Miami🌴',
+export const metadata = {
+  title: "soniDough",
+  description: "Kneaded with ❤️ desde Miami🌴",
 };
 
 export const revalidate = 0;
 
 export default async function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  const userSongs = await getSongsByUserID();
+}: Readonly<{ children: React.ReactNode }>) {
+  const userSongs = await getSongsByUserId();
+
   return (
     <html lang="en">
       <body className={font.className}>
@@ -30,7 +29,8 @@ export default async function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-          <Sidebar songs={userSongs}>{children}</Sidebar>
+            <Sidebar songs={userSongs}>{children}</Sidebar>
+            <Player />
           </UserProvider>
         </SupabaseProvider>
       </body>
