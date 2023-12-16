@@ -1,12 +1,12 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from "react";
 
-import { Subscription, UserDetails } from '@/types';
+import { Subscription, UserDetails } from "@/types";
 
-import { User } from '@supabase/auth-helpers-nextjs';
+import { User } from "@supabase/auth-helpers-nextjs";
 import {
   useSessionContext,
   useUser as useSupaUser,
-} from '@supabase/auth-helpers-react';
+} from "@supabase/auth-helpers-react";
 
 type UserContentType = {
   accessToken: string | null;
@@ -36,12 +36,12 @@ export const MyUserContextProvider = (props: Props) => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
 
-  const getUserDetails = () => supabase.from('users').select('*').single();
+  const getUserDetails = () => supabase.from("users").select("*").single();
   const getSubscription = () =>
     supabase
-      .from('subscriptions')
-      .select('*, prices(*, products(*))')
-      .in('status', ['trailing', 'active'])
+      .from("subscriptions")
+      .select("*, prices(*, products(*))")
+      .in("status", ["trailing", "active"])
       .single();
 
   useEffect(() => {
@@ -53,11 +53,11 @@ export const MyUserContextProvider = (props: Props) => {
           const userDetailsPromise = results[0];
           const subscriptionPromise = results[1];
 
-          if (userDetailsPromise.status === 'fulfilled') {
+          if (userDetailsPromise.status === "fulfilled") {
             setUserDetails(userDetailsPromise.value.data as UserDetails);
           }
 
-          if (subscriptionPromise.status === 'fulfilled') {
+          if (subscriptionPromise.status === "fulfilled") {
             setSubscription(subscriptionPromise.value.data as Subscription);
           }
 
@@ -84,7 +84,7 @@ export const MyUserContextProvider = (props: Props) => {
 export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
-    throw new Error('useUser must be used in a MyUserContextProvider');
+    throw new Error("useUser must be used in a MyUserContextProvider");
   }
 
   return context;
