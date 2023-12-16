@@ -95,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <div>
               <Button
                 onClick={authModal.onOpen}
-                className="bg-white px-6 py-2 hover:scale-110"
+                className="bg-white px-6 py-2 transitiond delay-500 hover:scale-110"
               >
                 {' '}
                 Log In

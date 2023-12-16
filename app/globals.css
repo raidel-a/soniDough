@@ -9,29 +9,3 @@ body,
   background-color: black;
   color-scheme: dark;
 }
-
-/* .grainy-background {
-  background: transparent; 
-  position: absolute;
-  overflow: hidden;
-  background-repeat: repeat;
-}
-@keyframes moveBackground {
-  0%,
-  100% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position:20% 20%;
-  }
-} */
-/* 
-.grainy-background::before {
-  animation: moveBackground 60s linear alternate-reverse infinite;
-  
-  content: '';
-  position: absolute;
-  inset: 0 0 0 0;
-  opacity: 0.3;
-  z-index: 0;
-  /* base64 encoded small grainy texture */
