@@ -8,4 +8,38 @@ body,
   height: 100%;
   background-color: black;
   color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: 0.375rem
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(115 115 115 0.5);
+    border-radius: 0.75rem
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(115 115 115);  
+  }
+}
+
+@keyframes slideAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% + -75%));
+  }
+}
+
+/* Apply the animation to your element */
+.element:hover {
+  animation: slideAnimation ease-in-out alternate 5s infinite;
 }
