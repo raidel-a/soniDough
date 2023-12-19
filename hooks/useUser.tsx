@@ -17,7 +17,7 @@ type UserContentType = {
 };
 
 export const UserContext = createContext<UserContentType | undefined>(
-  undefined
+  undefined,
 );
 
 export interface Props {
@@ -62,7 +62,7 @@ export const MyUserContextProvider = (props: Props) => {
           }
 
           setIsLoadingData(false);
-        }
+        },
       );
     } else if (!user && !isLoadingUser && !isLoadingData) {
       setUserDetails(null);

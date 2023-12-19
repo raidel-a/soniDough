@@ -18,18 +18,18 @@ const SearchInput = () => {
 
     const url = qs.stringifyUrl({
       url: "/search",
-      query
+      query,
     });
     router.push(url);
   }, [debouncedValue, router]);
 
   return (
     <Input
-      placeholder={`\t🎤 What’s your jam today?`}
+      placeholder={`🎤 What’s your jam today?`}
       value={value}
       onChange={(e) => setValue(e.target.value)}
     />
   );
-}
+};
 
 export default SearchInput;

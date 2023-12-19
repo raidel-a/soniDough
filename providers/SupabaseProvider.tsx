@@ -8,20 +8,18 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 
 interface SupabaseProviderProps {
   children: React.ReactNode;
-};
+}
 
-const SupabaseProvider: React.FC<SupabaseProviderProps> = ({
-  children
-}) => {
-  const [supdabaseClient] = useState(() =>  
-   createClientComponentClient<Database>() 
-   );
+const SupabaseProvider: React.FC<SupabaseProviderProps> = ({ children }) => {
+  const [supdabaseClient] = useState(() =>
+    createClientComponentClient<Database>(),
+  );
 
-   return (
+  return (
     <SessionContextProvider supabaseClient={supdabaseClient}>
       {children}
     </SessionContextProvider>
-   )
-}
+  );
+};
 
 export default SupabaseProvider;

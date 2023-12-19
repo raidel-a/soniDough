@@ -6,7 +6,7 @@ interface PlayButtonProps {
 
 const PlayButton: React.FC<PlayButtonProps> = ({ onClick }) => {
   return (
-    <button 
+    <button
       onClick={onClick}
       className="
         transition 
@@ -21,8 +21,8 @@ const PlayButton: React.FC<PlayButtonProps> = ({ onClick }) => {
         group-hover:opacity-90
         group-hover:rotate-[360deg] 
         hover:scale-110 
-        active:scale-90">
-
+        active:scale-90"
+    >
       <FaPlay className="text-black" />
     </button>
   );

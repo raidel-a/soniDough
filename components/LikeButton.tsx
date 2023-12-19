@@ -69,8 +69,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
         setIsLiked(true);
         toast.success("Added to Liked Songs");
       }
-    } router.refresh();
-  }
+    }
+    router.refresh();
+  };
 
   return (
     <button className="hover:opacity-50 transition" onClick={handleLike}>

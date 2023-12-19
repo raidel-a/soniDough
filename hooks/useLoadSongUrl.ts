@@ -3,7 +3,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const useLoadSongUrl = (song: Song) => {
   const supabaseClient = useSupabaseClient();
-// can useSessionContext and extract supabaseClient 
+  // can useSessionContext and extract supabaseClient
 
   if (!song) {
     return "";

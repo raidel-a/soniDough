@@ -25,7 +25,7 @@ const UploadModal = () => {
       title: "",
       song: null,
       image: null,
-    }
+    },
   });
 
   const onChange = (open: boolean) => {
@@ -33,7 +33,7 @@ const UploadModal = () => {
       reset();
       uploadModal.onClose();
     }
-  }
+  };
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
@@ -94,7 +94,7 @@ const UploadModal = () => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Modal

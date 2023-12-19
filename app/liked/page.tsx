@@ -30,9 +30,10 @@ const Liked = async () => {
             </div>
           </div>
         </div>
-      </Header> <LikedContent songs={songs} />
+      </Header>{" "}
+      <LikedContent songs={songs} />
     </div>
   );
-}
+};
 
 export default Liked;

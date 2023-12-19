@@ -10,7 +10,7 @@ interface SearchContentProps {
 }
 
 const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
-const onPlay = useOnPlay(songs);
+  const onPlay = useOnPlay(songs);
 
   if (songs.length === 0) {
     return (
@@ -27,7 +27,7 @@ const onPlay = useOnPlay(songs);
           <div className="flex-1">
             <MediaItem onClick={(id: string) => onPlay(id)} data={song} />
           </div>
-        <LikeButton songId={song.id} />
+          <LikeButton songId={song.id} />
         </div>
       ))}
     </div>

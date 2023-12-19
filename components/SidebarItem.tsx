@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { IconType } from 'react-icons';
-import { twMerge } from 'tailwind-merge';
+import Link from "next/link";
+import { IconType } from "react-icons";
+import { twMerge } from "tailwind-merge";
 
 interface SidebarItemProps {
   icon: IconType;
@@ -34,7 +34,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
             text-neutral-400
             py-1
             `,
-          active && 'text-white'
+          active && "text-white",
         )}
       >
         <Icon size={26} />
