@@ -30,7 +30,7 @@ const useGetSongById = (id?: string) => {
       setIsLoading(false);
     };
 
-    fetchSong;
+    fetchSong();
   }, [id, supabaseClient]);
 
   return useMemo(() => ({ isLoading, song }), [isLoading, song]);

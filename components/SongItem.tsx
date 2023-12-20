@@ -13,17 +13,7 @@ interface SongItemProps {
 const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
   const imagePath = useLoadImage(data);
 
-  let container = document.querySelector("conatiner");
-  let text = document.querySelector("text");
-
-  if (container && text && container.clientWidth < text.clientWidth) {
-    text.classList.add("animate");
-  }
-
-
-
   return (
-
     <div className="relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/20 cursor-pointer hover:bg-neutral-400/25 transition p-3">
       <div className="relative aspect-square w-full h-full rounded-md overflow-hidden">
         <Image
@@ -33,17 +23,8 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
           alt="Image"
         />
       </div>
-      <div
-        id="container"
-        className="flex flex-col items-start w-full pt-4 gap-y-1"
-      >
-        <p
-          id="text"
-          className="inline-block font-semibold w-full overflow-hidden whitespace-nowrap"
-        >
-          {data.title}
-        </p>
-
+      <div className="flex flex-col items-start w-full pt-4 gap-y-1">
+        <p className="font-semibold w-full truncate">{data.title}</p>
         <p className="text-neutral-400 text-sm pb-4 w-full truncate">
           {data.author}
         </p>
