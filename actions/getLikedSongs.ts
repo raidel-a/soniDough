@@ -4,9 +4,11 @@ import { cookies } from "next/headers";
 
 const getLikedSongs = async (): Promise<Song[]> => {
   const supabase = createServerComponentClient({ cookies: cookies });
+
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  
   const { data, error } = await supabase
     .from("liked_songs")
     .select("*, songs(*)")
