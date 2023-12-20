@@ -2,8 +2,8 @@
 
 import useDebounce from "@/hooks/useDebounce";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import qs from "query-string";
+import { useEffect, useState } from "react";
 import Input from "./Input";
 
 const SearchInput = () => {
@@ -12,14 +12,10 @@ const SearchInput = () => {
   const debouncedValue = useDebounce<string>(value, 500);
 
   useEffect(() => {
-    const query = {
-      title: debouncedValue,
-    };
+    const query = { title: debouncedValue };
 
-    const url = qs.stringifyUrl({
-      url: "/search",
-      query,
-    });
+    const url = qs.stringifyUrl({ url: "/search", query });
+
     router.push(url);
   }, [debouncedValue, router]);
 
