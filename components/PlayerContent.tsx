@@ -10,6 +10,7 @@ import useSound from "use-sound";
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
 import Slider from "./Slider";
+import ProgressBar from "./ProgBar";
 
 interface PlayerContentProps {
   song: Song;
@@ -97,13 +98,18 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         </div>
       </div>
 
+      <div className="flex justify-center h-fit align-top">
+        <ProgressBar  progress={10} songDuration={70}/>
+      </div>
+
       <div className="flex md:hidden col-auto w-full justify-end items-center">
         <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer hover:scale-105 active:scale-90">
           <Icon onClick={handlePlay} size={30} className="text-black" />
         </div>
       </div>
 
-      <div className="hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-2">
+      <div className="hidden h-fit md:flex justify-center items-center w-full max-w-[722px] gap-x-2">
+              
         <AiFillStepBackward
           onClick={onPlayPrev}
           size={27}
@@ -132,6 +138,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
           <Slider value={volume} onChange={(value) => setVolume(value)} />
         </div>
       </div>
+     
     </div>
   );
 };
