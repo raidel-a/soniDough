@@ -18,10 +18,17 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer();
-  const [volume, setVolume] = useState(
-    parseFloat(localStorage.getItem("playerVolume") || "1"),
-  );
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const initialVolume = parseFloat(localStorage.getItem("playerVolume") || "1");
+  const initialLastNonZeroVolume = parseFloat(
+    localStorage.getItem("lastNonZeroVolume") || initialVolume.toString(),
+  );
+
+  const [volume, setVolume] = useState(initialVolume);
+  const [lastNonZeroVolume, setLastNonZeroVolume] = useState(
+    initialLastNonZeroVolume,
+  );
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
@@ -81,18 +88,19 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       pause();
     }
   };
-
+  //  TODO: Rewrite handling of mute
   const toggleMute = () => {
-    if (volume === 0) {
-      setVolume(1);
-    } else {
+    if (volume > 0) {
+      setLastNonZeroVolume(volume); // Save the current volume before muting
       setVolume(0);
+    } else {
+      setVolume((prev) => (prev === 0 ? lastNonZeroVolume : prev));
     }
   };
-
   useEffect(() => {
     localStorage.setItem("playerVolume", volume.toString());
-  }, [volume]);
+    localStorage.setItem("lastNonZeroVolume", lastNonZeroVolume.toString());
+  }, [volume, lastNonZeroVolume]);
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
@@ -137,7 +145,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             className="cursor-pointer"
             size={25}
           />
-          <VolSlider value={volume} onChange={(value) => setVolume(value)} />
+          <VolSlider key={volume} value={volume} onChange={(value) => setVolume(value)} />
         </div>
       </div>
     </div>
