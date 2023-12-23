@@ -15,8 +15,8 @@ const VolSlider: React.FC<SliderProps> = ({ value = 1, onChange }) => {
   return (
     <Slider.Root
       className="relative flex items-center select-none touch-none w-2 h-full"
-      defaultValue={[0.4]}
-      onValueChange={handleChange}
+      defaultValue={[value]}
+      onValueChange={(newValue) => handleChange(newValue)}
       max={1}
       step={0.1}
       orientation="vertical"
