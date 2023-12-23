@@ -1,32 +1,32 @@
 "use client";
 
-import * as RadixSlider from "@radix-ui/react-slider";
+import * as Slider from "@radix-ui/react-slider";
 
 interface SliderProps {
   value?: number;
   onChange?: (value: number) => void;
 }
 
-const Slider: React.FC<SliderProps> = ({ value = 1, onChange }) => {
+const VolSlider: React.FC<SliderProps> = ({ value = 1, onChange }) => {
   const handleChange = (newValue: number[]) => {
     onChange?.(newValue[0]);
   };
 
   return (
-    <RadixSlider.Root
-      className="relative flex items-center select-none touch-none w-full h-10"
-      defaultValue={[0.5]}
-      value={[value]}
+    <Slider.Root
+      className="relative flex items-center select-none touch-none w-2 h-full"
+      defaultValue={[0.4]}
       onValueChange={handleChange}
       max={1}
       step={0.1}
+      orientation="vertical"
       aria-label="Volume"
     >
-      <RadixSlider.Track className="bg-neutral-600 relative grow rounded-full h-[5px]">
-        <RadixSlider.Range className="absolute bg-white rounded-full h-full" />
-      </RadixSlider.Track>
-    </RadixSlider.Root>
+      <Slider.Track className="bg-neutral-600 relative grow rounded-full h-full">
+        <Slider.Range className="absolute bg-white rounded-full w-2" />
+      </Slider.Track>
+    </Slider.Root>
   );
 };
 
-export default Slider;
+export default VolSlider;

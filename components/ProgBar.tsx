@@ -1,31 +1,32 @@
-import React from 'react';
-import * as Progress from '@radix-ui/react-progress';
+"use client";
 
-interface ProgressBarProps {
-  progress: number;
-  songDuration: number;
+import * as Prog from "@radix-ui/react-slider";
+
+interface ProgBarProps {
+  value?: number;
+  onChange?: (value: number) => void;
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ progress, songDuration }) => {
+const ProgBar: React.FC<ProgBarProps> = ({ value = 0, onChange }) => {
+  const handleChange = (newValue: number[]) => {
+    onChange?.(newValue[0]);
+  };
 
-  
   return (
-    <Progress.Root
-      className="relative overflow-hidden bg-gray-700 rounded-full w-[300px] h-[7px]"
-      style={{
-        // Fix overflow clipping in Safari
-        // https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0
-        transform: 'translateZ(0)',
-      }}
-      value={progress}
-      max={songDuration}
+    <Prog.Root
+      className="relative flex items-center select-none touch-none w-full h-5"
+      defaultValue={[0]}
+      value={[value]}
+      onValueChange={handleChange}
+      max={1}
+      step={0.1}
+      aria-label="Song Progress"
     >
-      <Progress.Indicator
-        className="bg-white w-full h-full transition-transform duration-[660ms] ease-[cubic-bezier(0.65, 0, 0.35, 1)]"
-        style={{ transform: `translateX(-${songDuration - progress}%)` }}
-      />
-    </Progress.Root>
+      <Prog.Track className="bg-neutral-600 relative grow rounded-full h-[3px]">
+        <Prog.Range className="absolute bg-white rounded-full h-full" />
+      </Prog.Track>
+    </Prog.Root>
   );
 };
 
-export default ProgressBar;
+export default ProgBar;

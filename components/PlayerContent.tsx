@@ -9,8 +9,8 @@ import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import useSound from "use-sound";
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
-import Slider from "./Slider";
-import ProgressBar from "./ProgBar";
+import VolSlider from "./Slider";
+import ProgBar from "./ProgBar";
 
 interface PlayerContentProps {
   song: Song;
@@ -98,47 +98,43 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         </div>
       </div>
 
-      <div className="flex justify-center h-fit align-top">
-        <ProgressBar  progress={10} songDuration={70}/>
-      </div>
-
       <div className="flex md:hidden col-auto w-full justify-end items-center">
         <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer hover:scale-105 active:scale-90">
           <Icon onClick={handlePlay} size={30} className="text-black" />
         </div>
       </div>
 
-      <div className="hidden h-fit md:flex justify-center items-center w-full max-w-[722px] gap-x-2">
-              
+      <div className="hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-2">
         <AiFillStepBackward
           onClick={onPlayPrev}
           size={27}
           className="text-neutral-400 cursor-pointer hover:text-white transition"
         />
 
-        <div onClick={handlePlay}
+        <div
+          onClick={handlePlay}
           className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer hover:scale-105 active:scale-90"
         >
-          <Icon size={28} className="text-black" />
+          <Icon size={30} className="text-black" />
         </div>
 
-        <AiFillStepForward onClick={onPlayNext}
+        <AiFillStepForward
+          onClick={onPlayNext}
           size={27}
           className="text-neutral-400 cursor-pointer hover:text-white transition"
         />
       </div>
 
-      <div className="hidden md:flex w-full justify-end pr-2">
-        <div className="flex items-center gap-x-2 w-[120px]">
+      <div className="hidden md:flex w-auto justify-end pr-[1px]">
+        <div className="flex items-center gap-x-2 w-[41px]">
           <VolumeIcon
             onClick={toggleMute}
             className="cursor-pointer"
             size={25}
           />
-          <Slider value={volume} onChange={(value) => setVolume(value)} />
+          <VolSlider value={volume} onChange={(value) => setVolume(value)} />
         </div>
       </div>
-     
     </div>
   );
 };
