@@ -9,8 +9,7 @@ import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import useSound from "use-sound";
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
-import VolSlider from "./Slider";
-import ProgBar from "./ProgBar";
+import VolSlider from "./VolSlider";
 
 interface PlayerContentProps {
   song: Song;
@@ -19,7 +18,9 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer();
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(
+    parseFloat(localStorage.getItem("playerVolume") || "1"),
+  );
   const [isPlaying, setIsPlaying] = useState(false);
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
@@ -88,6 +89,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       setVolume(0);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("playerVolume", volume.toString());
+  }, [volume]);
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
