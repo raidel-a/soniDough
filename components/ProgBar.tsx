@@ -14,17 +14,21 @@ const ProgBar: React.FC<ProgBarProps> = ({ value = 0, onChange }) => {
 
   return (
     <Prog.Root
-      className="relative flex items-center select-none touch-none w-full h-5"
-      defaultValue={[0]}
-      value={[value]}
-      onValueChange={handleChange}
+      className="topsy relative flex items-center select-none touch-none w-full h-5"
+      defaultValue={[0.5]}
+      // value={[value]}
+      // onValueChange={handleChange}
       max={1}
-      step={0.1}
-      aria-label="Song Progress"
+      step={0.001}
+      aria-label="Song Seeker"
     >
-      <Prog.Track className="bg-neutral-600 relative grow rounded-full h-[3px]">
+      <Prog.Track className="bg-neutral-900 relative grow rounded-full h-[4px]">
         <Prog.Range className="absolute bg-white rounded-full h-full" />
       </Prog.Track>
+      <Prog.Thumb
+        className="block rounded-[3px] w-3 h-3 shadow-[0_0_2px_1px] shadow-gray-500 bg-white active:w-[6px] active:h-[16px] hover:scale-125"
+        aria-label="Song Progress"
+      />
     </Prog.Root>
   );
 };
