@@ -22,12 +22,12 @@ const ProgBar: React.FC<ProgBarProps> = ({ value = 0, onChange }) => {
       step={0.001}
       aria-label="Song Seeker"
     >
-      <Prog.Track className="bg-neutral-700 relative grow rounded-full h-[4px]">
+      <Prog.Track className="bg-neutral-800 relative grow rounded-full h-[4px]">
         <Prog.Range className="absolute bg-white rounded-full h-full" />
       </Prog.Track>
       <Prog.Thumb
-        className="block rounded-[3px] w-[26px] h-[10px] shadow-[0_0_2px_2px]
-         shadow-gray-500 bg-gray-300 focus:rotate-90 duration-500 active:rotate-90 hover:scale-125 active:scale-100"
+        className="block rounded-[3px] w-[26px] h-[9px] shadow-[0_0_2px_2px]
+         shadow-gray-500 bg-gray-300 duration-500 hover:bg-blend-darken active:rotate-90 "
         aria-label="Song Progress"
       />
     </Prog.Root>
