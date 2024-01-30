@@ -101,7 +101,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
   };
 
-  const handleProgressChange = (value) => {
+  const handleProgressChange = (value: number) => {
     if (sound) {
       sound.seek(value * sound.duration());
     }
