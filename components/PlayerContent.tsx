@@ -20,6 +20,7 @@ interface PlayerContentProps {
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const initialVolume = parseFloat(localStorage.getItem("playerVolume") || "1");
   const initialLastNonZeroVolume = parseFloat(
@@ -82,6 +83,16 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     };
   }, [sound]);
 
+  useEffect(() => {
+    if (sound) {
+      const interval = setInterval(() => {
+        setProgress(sound.seek() / sound.duration() || 0);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [sound]);
+
   const handlePlay = () => {
     if (!isPlaying) {
       play();
@@ -89,6 +100,13 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       pause();
     }
   };
+
+  const handleProgressChange = (value) => {
+    if (sound) {
+      sound.seek(value * sound.duration());
+    }
+  };
+
   //  TODO: Rewrite handling of mute
   const toggleMute = () => {
     if (volume > 0) {
@@ -156,11 +174,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       </div>
 
       <div className="fixed pr-4 w-screen items-center bottom-20">
-        <ProgBar value={0.5} onChange={() => {}} />
+        <ProgBar value={progress} onChange={handleProgressChange} />{" "}
       </div>
     </div>
   );
 };
 
 export default PlayerContent;
- 

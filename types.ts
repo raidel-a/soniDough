@@ -61,3 +61,7 @@ export interface Subscription {
   trial_start?: string;
   user_id: string;
 }
+
+export interface valuue {
+  
+}
