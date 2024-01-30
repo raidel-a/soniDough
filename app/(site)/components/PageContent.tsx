@@ -14,7 +14,6 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
   if (songs.length === 0) {
     return (
       <div className="mt-4 text-neutral-400">
-        {"'bailemos, bailemos si no, estamos perdidos' - Pina Bausch"}
         {"Add a song to get started!"}
       </div>
     );

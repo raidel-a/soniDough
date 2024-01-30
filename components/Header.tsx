@@ -78,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 Logout
               </Button>
               <Button
-                onClick={() => router.push("/account")}
+                onClick={() => router.push("/profile")}
                 className="bg-white hover:scale-110"
               >
                 <FaUserAlt />

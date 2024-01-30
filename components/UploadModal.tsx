@@ -19,7 +19,7 @@ const UploadModal = () => {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
 
-  const { register, handleSubmit, reset } = useForm<FieldValues>({
+  const { register, handleSubmit, reset, watch } = useForm<FieldValues>({
     defaultValues: {
       author: "",
       title: "",
@@ -28,10 +28,19 @@ const UploadModal = () => {
     },
   });
 
+  const values = watch();
+
   const onChange = (open: boolean) => {
     if (!open) {
       reset();
       uploadModal.onClose();
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.size > 50 * 1024 * 1024) {
+      toast.error("File size must be less than 50MB");
     }
   };
 
@@ -122,8 +131,9 @@ const UploadModal = () => {
             id="song"
             type="file"
             disabled={isLoading}
-            accept=".mp3"
+            accept=".mp3, .flac, .wav"
             {...register("song", { required: true })}
+            onChange={handleFileChange}
           />
           {/* TODO: add more file types */}
         </div>
@@ -137,7 +147,10 @@ const UploadModal = () => {
             {...register("image", { required: true })}
           />
         </div>
-        <Button disabled={isLoading} type="submit">
+        <Button
+          disabled={!values.song || values.song[0].size > 50 * 1024 * 1024}
+          type="submit"
+        >
           Create
         </Button>
       </form>

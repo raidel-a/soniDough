@@ -9,7 +9,8 @@ import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import useSound from "use-sound";
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
-import Slider from "./Slider";
+import ProgBar from "./ProgBar";
+import VolSlider from "./VolSlider";
 
 interface PlayerContentProps {
   song: Song;
@@ -18,8 +19,18 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer();
-  const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const initialVolume = parseFloat(localStorage.getItem("playerVolume") || "1");
+  const initialLastNonZeroVolume = parseFloat(
+    localStorage.getItem("lastNonZeroVolume") || initialVolume.toString(),
+  );
+
+  const [volume, setVolume] = useState(initialVolume);
+  const [lastNonZeroVolume, setLastNonZeroVolume] = useState(
+    initialLastNonZeroVolume,
+  );
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
@@ -62,7 +73,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       onPlayNext();
     },
     onpause: () => setIsPlaying(false),
-    format: ["mp3"],
+    format: ["mp3", "flac", "wav"],
   });
 
   useEffect(() => {
@@ -70,6 +81,16 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     return () => {
       sound?.unload();
     };
+  }, [sound]);
+
+  useEffect(() => {
+    if (sound) {
+      const interval = setInterval(() => {
+        setProgress(sound.seek() / sound.duration() || 0);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
   }, [sound]);
 
   const handlePlay = () => {
@@ -80,13 +101,25 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
   };
 
-  const toggleMute = () => {
-    if (volume === 0) {
-      setVolume(1);
-    } else {
-      setVolume(0);
+  const handleProgressChange = (value: number) => {
+    if (sound) {
+      sound.seek(value * sound.duration());
     }
   };
+
+  //  TODO: Rewrite handling of mute
+  const toggleMute = () => {
+    if (volume > 0) {
+      setLastNonZeroVolume(volume); // Save the current volume before muting
+      setVolume(0);
+    } else {
+      setVolume((prev) => (prev === 0 ? lastNonZeroVolume : prev));
+    }
+  };
+  useEffect(() => {
+    localStorage.setItem("playerVolume", volume.toString());
+    localStorage.setItem("lastNonZeroVolume", lastNonZeroVolume.toString());
+  }, [volume, lastNonZeroVolume]);
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
@@ -101,6 +134,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer hover:scale-105 active:scale-90">
           <Icon onClick={handlePlay} size={30} className="text-black" />
         </div>
+        div
       </div>
 
       <div className="hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-2">
@@ -110,27 +144,37 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
           className="text-neutral-400 cursor-pointer hover:text-white transition"
         />
 
-        <div onClick={handlePlay}
+        <div
+          onClick={handlePlay}
           className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer hover:scale-105 active:scale-90"
         >
-          <Icon size={28} className="text-black" />
+          <Icon size={30} className="text-black" />
         </div>
 
-        <AiFillStepForward onClick={onPlayNext}
+        <AiFillStepForward
+          onClick={onPlayNext}
           size={27}
           className="text-neutral-400 cursor-pointer hover:text-white transition"
         />
       </div>
 
-      <div className="hidden md:flex w-full justify-end pr-2">
-        <div className="flex items-center gap-x-2 w-[120px]">
+      <div className="hidden md:flex w-auto justify-end pr-2">
+        <div className="flex items-center gap-x-2 w-auto">
           <VolumeIcon
             onClick={toggleMute}
             className="cursor-pointer"
             size={25}
           />
-          <Slider value={volume} onChange={(value) => setVolume(value)} />
+          <VolSlider
+            key={volume}
+            value={volume}
+            onChange={(value) => setVolume(value)}
+          />
         </div>
+      </div>
+
+      <div className="fixed pr-4 w-screen items-center bottom-20">
+        <ProgBar value={progress} onChange={handleProgressChange} />{" "}
       </div>
     </div>
   );

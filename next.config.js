@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // devServer: {
+  //   host: "localhost",
+  //   port: 3030,
+  // },
   images: {
     remotePatterns: [
       {
