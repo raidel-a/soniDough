@@ -87,7 +87,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     if (sound) {
       const interval = setInterval(() => {
         setProgress(sound.seek() / sound.duration() || 0);
-      }, 1000);
+      }, 10);
 
       return () => clearInterval(interval);
     }

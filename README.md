@@ -29,12 +29,37 @@ The project is organized into several directories:
 
 Next 13.4
 React
-Stripe
+Vercel
 Supabase
 PostgreSQL
 Tailwind
+<!-- Stripe -->
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Key Features:
+
+- Audio upload
+- Supabase and PostgreSQL Database handling
+- Tailwind design for sleek UI
+- Tailwind animations and transition effects
+- Full responsiveness for all devices
+- Credential authentication with Supabase
+- Github and Google authentication integration
+- File and image upload using Supabase storage
+- Client form validation and handling using react-hook-form
+- Server error handling with react-toast
+- Play audio
+- Favorites system
+- Playlists / Liked songs system
+- Advanced Player component, with seek and stored volume control
+- POST, GET, and DELETE routes in route handlers (app/api)
+- Data Fetching in React server components by directly accessing the database without the need of API's
+- Handling relations between Server and Child components in a real-time environment
+<!-- - Cancelling Stripe subscriptions -->
+<!-- - Stripe integration -->
+<!-- - Stripe recurring payment integration -->
+
 
 ## Getting Started
 
