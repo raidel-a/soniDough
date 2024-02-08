@@ -8,15 +8,15 @@ interface SliderProps {
 }
 
 const VolSlider: React.FC<SliderProps> = ({ value = 1, onChange }) => {
-  // const handleChange = (newValue: number[]) => {
-  //   onChange?.(newValue[0]);
-  // };
+  const handleChange = (newValue: number[]) => {
+    onChange?.(newValue[0]);
+  };
 
   return (
     <Slider.Root
       className="relative flex items-center select-none touch-none w-2 h-full"
       defaultValue={[value]}
-      onValueChange={(newValue) => onChange && onChange(newValue[0])}
+      onValueChange={handleChange}
       max={1}
       step={0.1}
       orientation="vertical"

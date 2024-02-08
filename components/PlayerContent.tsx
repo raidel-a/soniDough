@@ -166,7 +166,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             size={25}
           />
           <VolSlider
-            key={volume}
+            // key={volume}
             value={volume}
             onChange={(value) => setVolume(value)}
           />
