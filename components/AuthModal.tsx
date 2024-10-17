@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import {
   useSessionContext,
@@ -12,15 +12,18 @@ import { useEffect } from "react";
 import useAuthModal from "@/hooks/useAuthModal";
 import Modal from "./Modal";
 
-const AuthModal = () => {
-  const supaBaseClient = useSupabaseClient();
+interface AuthModalProps {
+  showClose?: boolean;
+}
+
+const AuthModal: React.FC<AuthModalProps> = ({ showClose = true }) => {
+  const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const { session } = useSessionContext();
   const { onClose, isOpen } = useAuthModal();
 
   useEffect(() => {
     if (session) {
-      onClose();
       router.refresh();
       onClose();
     }
@@ -34,18 +37,17 @@ const AuthModal = () => {
 
   return (
     <Modal
-      title="Welcome back"
-      description="Log in to your account to continue"
+      title="Welcome to sonidough" 
+      description="Log in or Sign up to continue"
       isOpen={isOpen}
       onChange={onChange}
+      showClose={showClose}
     >
       <Auth
         theme="dark"
         magicLink
-        providers={["github"
-          // ,"google"
-        ]}
-        supabaseClient={supaBaseClient}
+        providers={["github"]}
+        supabaseClient={supabaseClient}
         appearance={{
           theme: ThemeSupa,
           variables: {
