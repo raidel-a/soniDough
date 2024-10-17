@@ -18,30 +18,25 @@ jobs:
         with:
           excluded_paths: "ignore,.github"
           output_file: "diagram.svg"
+          branch: "repo-visualizer"
+          commit_message: "Update repository visualization"
 
-      - name: Create and push branch with only diagram
+      - name: Add timestamped copy
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           timestamp=$(date +'%Y-%m-%d_%H-%M-%S')
           
-          # Copy the diagram files to a temporary location
-          cp diagram.svg /tmp/diagram.svg
-          cp diagram.svg "/tmp/diagram_${timestamp}.svg"
+          # Checkout the repo-visualizer branch
+          git fetch origin repo-visualizer
+          git checkout repo-visualizer
           
-          # Create a new orphan branch
-          git checkout --orphan repo-visualizer
+          # Create a timestamped copy
+          cp diagram.svg "diagram_${timestamp}.svg"
           
-          # Remove all files from the working directory
-          git rm -rf .
+          # Add and commit the timestamped copy
+          git add "diagram_${timestamp}.svg"
+          git commit -m "Add timestamped diagram - ${timestamp}"
           
-          # Move the diagram files from the temporary location
-          mv /tmp/diagram.svg .
-          mv "/tmp/diagram_${timestamp}.svg" .
-          
-          # Add and commit only the diagram files
-          git add diagram.svg "diagram_${timestamp}.svg"
-          git commit -m "Update repository visualization - ${timestamp}"
-          
-          # Force push to the repo-visualizer branch
-          git push origin repo-visualizer --force
+          # Push changes
+          git push origin repo-visualizer
