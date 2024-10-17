@@ -19,16 +19,47 @@ jobs:
           excluded_paths: "ignore,.github"
           output_file: "diagram.svg"
 
+      - name: Debug - List files
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Files in current directory:"
+          ls -la
+          echo "Files in GITHUB_WORKSPACE:"
+          ls -la $GITHUB_WORKSPACE
+
       - name: Create and push branch with diagrams
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           timestamp=$(date +"%Y%m%d_%H%M%S")
-          cp $GITHUB_WORKSPACE/diagram.svg $GITHUB_WORKSPACE/diagram_${timestamp}.svg
+          
+          echo "Searching for diagram.svg"
+          find $GITHUB_WORKSPACE -name diagram.svg
+          
+          if [ -f diagram.svg ]; then
+            cp diagram.svg "diagram_${timestamp}.svg"
+          elif [ -f $GITHUB_WORKSPACE/diagram.svg ]; then
+            cp $GITHUB_WORKSPACE/diagram.svg $GITHUB_WORKSPACE/diagram_${timestamp}.svg
+          else
+            echo "diagram.svg not found"
+            exit 1
+          fi
+          
           git checkout --orphan repo-visualizer
           git rm -rf .
-          mv $GITHUB_WORKSPACE/diagram.svg .
-          mv $GITHUB_WORKSPACE/diagram_${timestamp}.svg .
+          
+          if [ -f diagram.svg ]; then
+            mv diagram.svg .
+            mv "diagram_${timestamp}.svg" .
+          elif [ -f $GITHUB_WORKSPACE/diagram.svg ]; then
+            mv $GITHUB_WORKSPACE/diagram.svg .
+            mv $GITHUB_WORKSPACE/diagram_${timestamp}.svg .
+          else
+            echo "diagram.svg not found after branch creation"
+            exit 1
+          fi
+          
           git add diagram.svg "diagram_${timestamp}.svg"
           git commit -m "Update repository visualization - $timestamp"
           git push origin repo-visualizer --force
