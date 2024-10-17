@@ -19,56 +19,25 @@ jobs:
           excluded_paths: "ignore,.github"
           output_file: "diagram.svg"
 
-      - name: Debug - After diagram creation
-        run: |
-          echo "Current directory after diagram creation:"
-          pwd
-          echo "Files in current directory:"
-          ls -la
-          echo "Files in GITHUB_WORKSPACE:"
-          ls -la $GITHUB_WORKSPACE
-          echo "Searching for diagram.svg:"
-          find $GITHUB_WORKSPACE -name diagram.svg
-
-      - name: Create and push branch with diagrams
+      - name: Create and push branch with only diagram
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           timestamp=$(date +"%Y%m%d_%H%M%S")
           
-          echo "Searching for diagram.svg before branch creation"
-          find $GITHUB_WORKSPACE -name diagram.svg
-          
-          if [ -f diagram.svg ]; then
-            echo "diagram.svg found in current directory"
-            cp diagram.svg "diagram_${timestamp}.svg"
-          elif [ -f $GITHUB_WORKSPACE/diagram.svg ]; then
-            echo "diagram.svg found in GITHUB_WORKSPACE"
-            cp $GITHUB_WORKSPACE/diagram.svg $GITHUB_WORKSPACE/diagram_${timestamp}.svg
-          else
-            echo "diagram.svg not found before branch creation"
-          fi
-          
+          # Create a new orphan branch
           git checkout --orphan repo-visualizer
           
-          echo "Contents of directory after branch creation:"
-          ls -la
+          # Remove all files from the working directory
+          git rm -rf .
           
-          echo "Searching for diagram.svg after branch creation"
-          find $GITHUB_WORKSPACE -name diagram.svg
+          # Move the diagram files
+          mv $GITHUB_WORKSPACE/diagram.svg .
+          cp diagram.svg "diagram_${timestamp}.svg"
           
-          if [ -f diagram.svg ]; then
-            echo "diagram.svg found in current directory after branch creation"
-            cp diagram.svg "diagram_${timestamp}.svg"
-          elif [ -f $GITHUB_WORKSPACE/diagram.svg ]; then
-            echo "diagram.svg found in GITHUB_WORKSPACE after branch creation"
-            cp $GITHUB_WORKSPACE/diagram.svg diagram.svg
-            cp $GITHUB_WORKSPACE/diagram.svg "diagram_${timestamp}.svg"
-          else
-            echo "diagram.svg not found after branch creation"
-            exit 1
-          fi
-          
+          # Add and commit only the diagram files
           git add diagram.svg "diagram_${timestamp}.svg"
           git commit -m "Update repository visualization - $timestamp"
+          
+          # Force push to the repo-visualizer branch
           git push origin repo-visualizer --force
