@@ -1,6 +1,6 @@
 # Project Overview
 
-This project is a music streaming web application built with React and TypeScript, and it uses Next.js for server-side rendering. The application allows users to search for songs, like songs, and view their library of liked songs.
+This project is a music streaming web application built with React and TypeScript, and it uses Next.js for server-side rendering. The application allows users to upload, search for songs, like songs, and view their library of liked songs.
 
 ## Key Features
 
