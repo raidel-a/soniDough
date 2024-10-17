@@ -2,39 +2,32 @@ import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import getSongs from "@/actions/getSongs";
 import PageContent from "./components/PageContent";
-import { useUser } from "@/hooks/useUser";
-import { GetServerSideProps } from 'next';
-
+import { getServerSession } from "next-auth/next";
 
 export const revalidate = 0;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { user } = context.req; // Assuming you have user in request object
-
+async function getData() {
+  const session = await getServerSession();
   let songs = null;
-  if (user) {
-    songs = await getSongs(); // Assuming getSongs is a function that fetches songs
+  if (session?.user) {
+    songs = await getSongs();
   }
+  return { songs, user: session?.user };
+}
 
-  return {
-    props: {
-      songs,
-      user
-    },
-  };
-};
+export default async function Page() {
+  const { songs, user } = await getData();
 
-const Page = ({ songs, user }) => (
-  <div>
-    {user ? (
-      <div>
-        <h1>Welcome, {user.name}!</h1>
-        {songs && <PageContent songs={songs} />}
-      </div>
-    ) : (
-      <h1>Please log in to see your songs.</h1>
-    )}
-  </div>
-);
-
-export default Page;
+  return (
+    <div>
+      {user ? (
+        <div>
+          <h1>Welcome, {user.name}!</h1>
+          {songs && <PageContent songs={songs} />}
+        </div>
+      ) : (
+        <h1>Please log in to see your songs.</h1>
+      )}
+    </div>
+  );
+}
