@@ -23,7 +23,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          timestamp=$(date +"%Y%m%d_%H%M%S")
+          timestamp=$(date +'%Y-%m-%d_%H-%M-%S')
           
           # Copy the diagram files to a temporary location
           cp diagram.svg /tmp/diagram.svg
@@ -41,7 +41,7 @@ jobs:
           
           # Add and commit only the diagram files
           git add diagram.svg "diagram_${timestamp}.svg"
-          git commit -m "Update repository visualization - $timestamp"
+          git commit -m "Update repository visualization - ${timestamp}"
           
           # Force push to the repo-visualizer branch
           git push origin repo-visualizer --force
