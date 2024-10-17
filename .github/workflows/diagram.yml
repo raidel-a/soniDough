@@ -27,7 +27,8 @@ jobs:
           cp diagram.svg "diagram_${timestamp}.svg"
           git checkout --orphan repo-visualizer
           git rm -rf .
-          git add "diagram_${timestamp}.svg"
-          git add diagram.svg
+          mv ../diagram.svg .
+          mv "../diagram_${timestamp}.svg" .
+          git add diagram.svg "diagram_${timestamp}.svg"
           git commit -m "Update repository visualization - $timestamp"
           git push origin repo-visualizer --force
