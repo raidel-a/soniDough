@@ -23,7 +23,7 @@ The project is organized into several directories:
 
 ## Visualization of the repo
 
-![Visualization of this repo](./diagram.svg)
+![Visualization of this repo](https://raw.githubusercontent.com/raidel-a/soniDough/refs/heads/repo-visualizer/diagram.svg)
 
 ## Stack
 
