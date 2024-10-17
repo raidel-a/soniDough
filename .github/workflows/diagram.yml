@@ -23,11 +23,10 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git checkout --orphan repo-visualizer
           timestamp=$(date +"%Y%m%d_%H%M%S")
           mv diagram.svg "diagram_${timestamp}.svg"
+          git checkout --orphan repo-visualizer
           git rm -rf .
-          git checkout HEAD -- "diagram_${timestamp}.svg"
           git add "diagram_${timestamp}.svg"
           git commit -m "Update repository visualization - $timestamp"
           git push origin repo-visualizer --force
