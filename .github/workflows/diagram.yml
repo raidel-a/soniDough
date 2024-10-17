@@ -19,14 +19,16 @@ jobs:
           excluded_paths: "ignore,.github"
           output_file: "diagram.svg"
 
-      - name: Debug - List files
+      - name: Debug - After diagram creation
         run: |
-          echo "Current directory:"
+          echo "Current directory after diagram creation:"
           pwd
           echo "Files in current directory:"
           ls -la
           echo "Files in GITHUB_WORKSPACE:"
           ls -la $GITHUB_WORKSPACE
+          echo "Searching for diagram.svg:"
+          find $GITHUB_WORKSPACE -name diagram.svg
 
       - name: Create and push branch with diagrams
         run: |
@@ -34,27 +36,34 @@ jobs:
           git config --global user.email 'action@github.com'
           timestamp=$(date +"%Y%m%d_%H%M%S")
           
-          echo "Searching for diagram.svg"
+          echo "Searching for diagram.svg before branch creation"
           find $GITHUB_WORKSPACE -name diagram.svg
           
           if [ -f diagram.svg ]; then
+            echo "diagram.svg found in current directory"
             cp diagram.svg "diagram_${timestamp}.svg"
           elif [ -f $GITHUB_WORKSPACE/diagram.svg ]; then
+            echo "diagram.svg found in GITHUB_WORKSPACE"
             cp $GITHUB_WORKSPACE/diagram.svg $GITHUB_WORKSPACE/diagram_${timestamp}.svg
           else
-            echo "diagram.svg not found"
-            exit 1
+            echo "diagram.svg not found before branch creation"
           fi
           
           git checkout --orphan repo-visualizer
-          git rm -rf .
+          
+          echo "Contents of directory after branch creation:"
+          ls -la
+          
+          echo "Searching for diagram.svg after branch creation"
+          find $GITHUB_WORKSPACE -name diagram.svg
           
           if [ -f diagram.svg ]; then
-            mv diagram.svg .
-            mv "diagram_${timestamp}.svg" .
+            echo "diagram.svg found in current directory after branch creation"
+            cp diagram.svg "diagram_${timestamp}.svg"
           elif [ -f $GITHUB_WORKSPACE/diagram.svg ]; then
-            mv $GITHUB_WORKSPACE/diagram.svg .
-            mv $GITHUB_WORKSPACE/diagram_${timestamp}.svg .
+            echo "diagram.svg found in GITHUB_WORKSPACE after branch creation"
+            cp $GITHUB_WORKSPACE/diagram.svg diagram.svg
+            cp $GITHUB_WORKSPACE/diagram.svg "diagram_${timestamp}.svg"
           else
             echo "diagram.svg not found after branch creation"
             exit 1
