@@ -38,3 +38,5 @@ next-env.d.ts
 # Ssupabasepassword
 password.txt
 .vscode/settings.json
+
+.env
