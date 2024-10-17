@@ -14,3 +14,10 @@ jobs:
         uses: githubocto/repo-visualizer@main
         with:
           excluded_paths: "ignore,.github"
+          output_branch: "repo-visualizer"
+          commit_message: "Update repository visualization"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: repo-visualizer
