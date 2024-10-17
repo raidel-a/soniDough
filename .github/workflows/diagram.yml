@@ -14,5 +14,6 @@ jobs:
         uses: githubocto/repo-visualizer@main
         with:
           excluded_paths: "ignore,.github"
-          output_branch: "repo-visualizer"
+          branch: "repo-visualizer"
           commit_message: "Update repository visualization"
+          should_push: true
